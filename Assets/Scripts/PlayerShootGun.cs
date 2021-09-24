@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerShootGun : MonoBehaviour
 {   
+    public ParticleSystem shootEffect;
+    public AudioSource shootAduio;
     public Transform exitPoint;
     private float timeElapsed = 0;
-    public AudioSource gunshotAudio;    
     private GameObject bullet;
     public Animator playerAnimator;
 
@@ -21,7 +22,9 @@ public class PlayerShootGun : MonoBehaviour
         if(Input.GetMouseButton(0))
         {
             playerAnimator.SetBool("Fire", true);
-            
+            playerAnimator.SetBool("Run", false);
+            playerAnimator.SetBool("Walk", false);
+
             // controll bullets
             bullet = ObjectPool.SharedInstance.GetPooledObject();
             if(bullet != null && timeElapsed > 100)
@@ -31,7 +34,8 @@ public class PlayerShootGun : MonoBehaviour
                 bullet.GetComponent<Rigidbody>().velocity = transform.up * 100;
                 bullet.SetActive(true);
                 timeElapsed = 0;
-                gunshotAudio.Play();
+                shootEffect.Play();
+                shootAduio.Play();
             }
         }
         else
