@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
-{
-    // Update is called once per frame
-    private void Start() 
+{ 
+
+    private void Update()
     {
         StartCoroutine(ActivationRoutine());
     }
@@ -13,13 +13,17 @@ public class Bullet : MonoBehaviour
     private IEnumerator ActivationRoutine()
      {        
          //Wait for 5 secs.
-         yield return new WaitForSeconds(5);
+         yield return new WaitForSeconds(4);
  
          gameObject.SetActive(false);
      }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision _collision)
     {
+        if(_collision.gameObject.layer == 6)
+        {
+            _collision.gameObject.transform.root.gameObject.SetActive(false);   
+        }
         gameObject.SetActive(false);
     }
 }

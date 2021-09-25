@@ -11,11 +11,6 @@ public class PlayerShootGun : MonoBehaviour
     private GameObject bullet;
     public Animator playerAnimator;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     void Fire_Update()
     {
@@ -29,10 +24,10 @@ public class PlayerShootGun : MonoBehaviour
             bullet = ObjectPool.SharedInstance.GetPooledObject();
             if(bullet != null && timeElapsed > 100)
             {
-                bullet.transform.position = transform.position;
-                bullet.transform.rotation = transform.rotation;
-                bullet.GetComponent<Rigidbody>().velocity = transform.up * 100;
                 bullet.SetActive(true);
+                bullet.transform.position = exitPoint.position;
+                bullet.transform.rotation = exitPoint.rotation;
+                bullet.GetComponent<Rigidbody>().velocity = exitPoint.up * 300; 
                 timeElapsed = 0;
                 shootEffect.Play();
                 shootAduio.Play();
